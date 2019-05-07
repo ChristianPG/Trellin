@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Card 1",
+    "description": "Card description 1",
+    "creationDate": 1557197680119,
+    "owner": "Christian 1"
+  },
+  {
+    "id": 2,
+    "title": "Card 2",
+    "description": "Card description 2",
+    "creationDate": 1557197861264,
+    "owner": "Christian 2"
+  }
+]
