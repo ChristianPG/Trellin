@@ -4,17 +4,21 @@ import './list.css';
 
 export class CardList extends React.Component {
   drag(event) {
-    event.dataTransfer.setData('text', event.target.id);
+    event.dataTransfer.setData('cardId', event.target.id);
   }
 
   allowDrop(event) {
     event.preventDefault();
+
+    if (event.target.className === 'card-list')
+      event.dataTransfer.dropEffect = 'all';
+    else event.dataTransfer.dropEffect = 'none';
   }
 
   render() {
     return (
       <div
-        id={this.props.name}
+        id={this.props.id}
         className='card-list'
         onDragOver={this.allowDrop}
         onDrop={this.props.onDrop}
@@ -24,8 +28,8 @@ export class CardList extends React.Component {
           return (
             <Card
               key={card.id}
-              data={card}
-              onClick={() => this.props.onClick(card.id)}
+              card={card}
+              onClick={() => this.props.onClick(card)}
               onDragStart={event => this.drag(event)}
             />
           );

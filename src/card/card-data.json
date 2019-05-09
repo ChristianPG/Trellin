@@ -1,18 +1,46 @@
 [
   {
-    "id": 1,
-    "title": "Card 1",
-    "description": "Card description 1",
-    "creationDate": 1557197680119,
-    "owner": "Christian 1",
-    "status": "To Do"
+    "id": 0,
+    "name": "To Do",
+    "cardList": [
+      {
+        "id": 1,
+        "title": "Card 1",
+        "description": "Card description 1",
+        "creationDate": 1557197680119,
+        "owner": "Christian 1",
+        "status": "To Do"
+      },
+      {
+        "id": 2,
+        "title": "Card 2",
+        "description": "This is a very large Card description 2",
+        "creationDate": 1557197861264,
+        "owner": "This is a very large owner name",
+        "status": "Done"
+      }
+    ]
   },
   {
-    "id": 2,
-    "title": "Card 2",
-    "description": "Card description 2",
-    "creationDate": 1557197861264,
-    "owner": "Christian 2",
-    "status": "Done"
+    "id": 3,
+    "name": "Done",
+    "cardList": [
+      {
+        "id": 3,
+        "title": "This is a very large card title",
+        "description": "Card description 3",
+        "creationDate": 1557197680119,
+        "owner": "Christian 3",
+        "status": "To Do"
+      },
+      {
+        "id": 4,
+        "title": "Card 4",
+        "description": "Card description 4",
+        "creationDate": 1557197861264,
+        "owner": "Christian 4",
+        "status": "Done"
+      }
+    ]
   }
 ]

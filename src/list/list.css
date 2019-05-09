@@ -1,4 +1,6 @@
 .card-list {
   background-color: darkgrey;
   height: 80vh;
+  border-radius: 10px;
+  overflow-y: auto;
 }

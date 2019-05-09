@@ -1,63 +1,99 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
 import logo from './logo.svg';
 import { CardList } from './list/list.component';
+import { CardDetail } from './card/card.component.js';
 import data from './card/card-data.json';
 import './App.css';
 
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+    maxHeight: '90vh',
+    overflowY: 'auto'
+  };
+}
+
+const styles = {
+  paper: {
+    position: 'absolute',
+    outline: 'none',
+    margin: 'auto'
+  }
+};
+
 class App extends React.Component {
   statusList = [{ id: 0, name: 'To Do' }, { id: 1, name: 'Done' }];
-  initialList = data;
 
   constructor(props) {
     super(props);
-    this.state = { cardList: data };
+    this.state = { board: data, modalVisible: false, openedCard: {} };
   }
 
-  handleClickOnCard(cardId) {
-    console.log(this.state);
-
-    this.setState({ ...this.state, cardList: [] });
+  handleClickOnCard(card) {
+    this.setState({ ...this.state, modalVisible: true, openedCard: card });
   }
 
   drop(event) {
     event.preventDefault();
-    console.log(event.target.id);
+    let targetStatus = Number(event.target.id);
+    let temporalState = this.state;
+    let movedCard;
 
-    let cardId = Number(event.dataTransfer.getData('text'));
+    let movedCardId = Number(event.dataTransfer.getData('cardId'));
     // event.target.appendChild(document.getElementById(data));
-    let newCardList = this.state.cardList.map(card => {
-      let newCard = card;
-      console.log(cardId);
-      console.log(newCard.id);
+    temporalState.board = temporalState.board
+      .map(status => {
+        let newStatus = status;
+        newStatus.cardList = newStatus.cardList.filter(card => {
+          let isMovedCard = card.id === movedCardId;
+          movedCard = isMovedCard ? card : movedCard;
 
-      if (newCard.id === cardId) {
-        newCard.status = event.target.id;
-      }
-
-      return newCard;
-    });
-    this.setState({
-      ...this.state,
-      cardList: newCardList
-    });
+          return !isMovedCard;
+        });
+        return newStatus;
+      })
+      .map(status => {
+        if (status.id === targetStatus) {
+          status.cardList.push(movedCard);
+        }
+        return status;
+      });
+    this.setState(temporalState);
   }
 
+  handleClose = () => {
+    this.setState({ ...this.state, modalVisible: false, openedCard: {} });
+  };
+
   render() {
+    const { classes } = this.props;
     return (
       <div className='App'>
         <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
         </header>
 
+        <Modal open={this.state.modalVisible} onClose={this.handleClose}>
+          <div style={getModalStyle()} className={classes.paper}>
+            <CardDetail card={this.state.openedCard} />
+          </div>
+        </Modal>
+
         <div className='board'>
-          {this.statusList.map(status => {
+          {this.state.board.map(status => {
             return (
               <div className='column' key={status.id}>
                 <CardList
+                  id={status.id}
                   name={status.name}
-                  list={this.state.cardList.filter(
-                    card => card.status === status.name
-                  )}
+                  list={status.cardList}
                   onClick={cardId => this.handleClickOnCard(cardId)}
                   onDrop={event => this.drop(event)}
                 />
@@ -70,4 +106,8 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const SimpleModalWrapped = withStyles(styles)(App);
+
+export default SimpleModalWrapped;
+
+//export default App;
