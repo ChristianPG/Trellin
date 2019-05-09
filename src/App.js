@@ -2,9 +2,9 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import logo from './logo.svg';
-import { CardList } from './list/list.component';
-import { CardDetail } from './card/card.component.js';
-import data from './card/card-data.json';
+import { CardList } from './components/list/list.js';
+import { CardDetail } from './components/card/card.js';
+import data from './card-data.json';
 import './App.css';
 
 function getModalStyle() {
@@ -28,7 +28,7 @@ const styles = {
   }
 };
 
-class App extends React.Component {
+class Board extends React.Component {
   statusList = [{ id: 0, name: 'To Do' }, { id: 1, name: 'Done' }];
 
   constructor(props) {
@@ -106,8 +106,6 @@ class App extends React.Component {
   }
 }
 
-const SimpleModalWrapped = withStyles(styles)(App);
+const App = withStyles(styles)(Board);
 
-export default SimpleModalWrapped;
-
-//export default App;
+export default App;
