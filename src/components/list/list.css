@@ -1,6 +1,11 @@
 .card-list {
-  background-color: darkgrey;
+  background-color: #282c34;
+  color: #61DAFB;
   height: 80vh;
   border-radius: 10px;
   overflow-y: auto;
+}
+
+.hover {
+  background-color: #00111f;
 }

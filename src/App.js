@@ -42,6 +42,7 @@ class Board extends React.Component {
 
   drop(event) {
     event.preventDefault();
+    event.target.classList.remove('hover');
     let targetStatus = Number(event.target.id);
     let temporalState = this.state;
     let movedCard;
